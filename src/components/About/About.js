@@ -1,3 +1,5 @@
+import myPhoto from '../../assets/svg/about/abou.png'
+
 import React, { useContext } from 'react';
 
 import './About.css';
@@ -23,7 +25,7 @@ function About() {
                 </div>
                 <div className="about-img">
                     <img 
-                        src={aboutData.image === 1 ? theme.aboutimg1 : theme.aboutimg2}  
+                        src={typeof aboutData.image === 'string' ? aboutData.image : myPhoto}  
                         alt="" 
                     />
                 </div>
