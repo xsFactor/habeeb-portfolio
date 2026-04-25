@@ -4,34 +4,106 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Portfolio Website" />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    
-    <meta name="description" content="Use Developer Portfolio and create your own personalised portfolio today! With multiple themes to choose from, our easily customisable, user friendly website is designed to cater to developers and freelancers alike." />
-    <meta property="og:image" content="Developer Portfolio">
-    <meta property="og:site_name" content="Developer Portfolio"/>
-    <meta property="og:title" content="Developer Portfolio"/>
-    <meta property="og:url" content="https://dev-portfolio-template.netlify.app/"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:description" content="Use Developer Portfolio and create your own personalised portfolio today! With multiple themes to choose from, our easily customisable, user friendly website is designed to cater to developers and freelancers alike."/>
-    
-    <meta itemprop="name" content="Developer Portfolio"/>
-    <meta itemprop="url" content="https://dev-portfolio-template.netlify.app/"/>
-    <meta itemprop="description" content="Use Developer Portfolio and create your own personalised portfolio today! With multiple themes to choose from, our easily customisable, user friendly website is designed to cater to developers and freelancers alike."/>
-    <meta itemprop="thumbnailUrl" content=""/>
-    
-    <meta name="twitter:url" content="https://dev-portfolio-template.netlify.app/"/>
-    <meta name="twitter:title" content="Developer Portfolio">
-    <meta name="twitter:description" content="Use Developer Portfolio and create your own personalised portfolio today! With multiple themes to choose from, our easily customisable, user friendly website is designed to cater to developers and freelancers alike.">
-    <meta name="twitter:card" content="summary"/>
 
-    <title>Portfolio</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Habeeb Factor | Cybersecurity Expert & Intelligence Architect" />
+    <meta name="description" content="Habeeb Factor - Intelligence Architect, Penetration Tester, OSINT Analyst, Vulnerability Management Engineer and Cybersecurity Expert based in Abuja, Nigeria." />
+    <meta name="keywords" content="Habeeb Factor, Cybersecurity, Penetration Testing, OSINT, Red Team, Vulnerability Management, Intelligence Architect, Abuja, Nigeria" />
+    <meta name="author" content="Habeeb Factor" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://habeebfactor.netlify.app/" />
+    <meta property="og:site_name" content="Habeeb Factor Portfolio" />
+    <meta property="og:title" content="Habeeb Factor | Cybersecurity Expert & Intelligence Architect" />
+    <meta property="og:description" content="Habeeb Factor - Intelligence Architect, Penetration Tester, OSINT Analyst, Vulnerability Management Engineer and Cybersecurity Expert based in Abuja, Nigeria." />
+    <meta property="og:image" content="%PUBLIC_URL%/favicon.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://habeebfactor.netlify.app/" />
+    <meta name="twitter:title" content="Habeeb Factor | Cybersecurity Expert & Intelligence Architect" />
+    <meta name="twitter:description" content="Habeeb Factor - Intelligence Architect, Penetration Tester, OSINT Analyst and Cybersecurity Expert based in Abuja, Nigeria." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/favicon.png" />
+    <meta name="twitter:creator" content="@_ahmedhabeeb" />
+
+    <!-- Google / Schema.org -->
+    <meta itemprop="name" content="Habeeb Factor | Cybersecurity Expert & Intelligence Architect" />
+    <meta itemprop="description" content="Habeeb Factor - Intelligence Architect, Penetration Tester, OSINT Analyst and Cybersecurity Expert based in Abuja, Nigeria." />
+    <meta itemprop="image" content="%PUBLIC_URL%/favicon.png" />
+    <meta itemprop="url" content="https://habeebfactor.netlify.app/" />
+
+    <title>Habeeb Factor | Cybersecurity Expert</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
+    <canvas id="particle-canvas"></canvas>
+    <script>
+    (function() {
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        const color = '#3fc337';
+        let pts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function init() {
+            pts = [];
+            for (let i = 0; i < 80; i++) {
+                pts.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: (Math.random() - 0.5) * 1.5,
+                    r: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pts.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.globalAlpha = 0.8;
+                ctx.fill();
+            });
+            for (let i = 0; i < pts.length; i++) {
+                for (let j = i + 1; j < pts.length; j++) {
+                    const dx = pts[i].x - pts[j].x;
+                    const dy = pts[i].y - pts[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 140) {
+                        ctx.beginPath();
+                        ctx.moveTo(pts[i].x, pts[i].y);
+                        ctx.lineTo(pts[j].x, pts[j].y);
+                        ctx.strokeStyle = color;
+                        ctx.globalAlpha = (1 - dist / 140) * 0.4;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        init();
+        draw();
+    })();
+    </script>
   </body>
 </html>

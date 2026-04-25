@@ -1,97 +1,70 @@
- export const skillsData = [
-    'HTML',
-    'Fastify',
-    'Blender',
-    'Figma',
-    'Javascript',
-    'CSS',
-    'React',
-    'Django',
+export const skillsCategories = [
+    {
+        id: 1,
+        category: 'OSINT',
+        skills: [
+            'Maltego', 'Shodan', 'theHarvester', 'Recon-ng',
+            'SpiderFoot', 'Censys', 'OSINT Framework',
+            'Google Dorking', 'Wayback Machine', 'Selenium',
+        ]
+    },
+    {
+        id: 2,
+        category: 'Offensive Security',
+        skills: [
+            'Metasploit', 'Burp Suite', 'Nmap', 'Nessus',
+            'SQLmap', 'Hashcat', 'Hydra', 'Netcat',
+            'Aircrack-ng', 'Wireshark', 'Python', 'Bash',
+        ]
+    },
+    {
+        id: 3,
+        category: 'Red Team',
+        skills: [
+            'Cobalt Strike', 'BloodHound', 'Mimikatz',
+            'MITRE ATT&CK', 'Kali Linux', 'Parrot OS',
+            'CVE Analysis', 'OWASP', 'C', 'Python',
+        ]
+    },
+    {
+        id: 4,
+        category: 'Cybercrime Analysis',
+        skills: [
+            'Autopsy', 'Wireshark', 'Volatility', 'YARA',
+            'Splunk', 'NetworkMiner', 'FTK',
+            'ELK Stack', 'Magnet AXIOM', 'Numpy',
+        ]
+    },
+    {
+        id: 5,
+        category: 'Programming',
+        skills: [
+            'Python', 'JavaScript', 'HTML', 'CSS',
+            'Bash', 'SQL', 'C', 'Markdown',
+        ]
+    },
+    {
+        id: 6,
+        category: 'Project Management',
+        skills: [
+            'Jira', 'Trello', 'Notion', 'Slack',
+            'Agile', 'Scrum', 'Microsoft Office', 'Git',
+        ]
+    },
+    {
+        id: 7,
+        category: 'Training & Instruction',
+        skills: [
+            'Canva', 'PowerPoint', 'Google Workspace',
+            'Zoom', 'Microsoft Office', 'WordPress',
+            'Figma', 'Gimp',
+        ]
+    },
 ]
 
-// Choose your skills from below. Make sure it's in the same format and spelled correctly.
-// Couldn't find the required skills? Raise an issue on github at https://github.com/hhhrrrttt222111/developer-portfolio/issues/new
-
-
-// AVAILABLE SKILLS
-
-/* 
-    HTML
-    CSS
-    JS 
-    React
-    Next JS
-    Nuxt JS
-    Node JS
-    Vue
-    Angular
-    Docker
-    Photoshop
-    Illustrator
-    Svelte
-    GCP
-    Azure
-    Fastify
-    Haxe
-    Ionic
-    Markdown
-    Microsoft Office
-    Picsart
-    Sketch
-    Unity
-    WolframAlpha
-    Adobe XD
-    After Effects
-    Bootstrap
-    Bulma
-    CapacitorJs
-    Coffeescript
-    MemSQL
-    C
-    C++
-    C#
-    Python
-    Java
-    Julia
-    Matlab
-    Swift
-    Ruby
-    Kotlin
-    Go
-    PHP
-    Flutter
-    Dart
-    Typescript
-    Swift
-    Git
-    Figma
-    Canva
-    Ubuntu
-    Bootstrap
-    MongoDB
-    Tailwind
-    ViteJS
-    VuetifyJS
-    MySQL
-    PostgreSQL
-    AWS
-    Firebase
-    Blender
-    Premiere Pro
-    Adobe Audition
-    Deno
-    Django
-    Gimp
-    Graphql
-    Lightroom
-    MaterialUI
-    Nginx
-    Numpy
-    OpenCV
-    Pytorch
-    Selenium
-    Strapi
-    Tensorflow
-    Webex
-    Wordpress
-*/
+// Keep original skillsData for backward compatibility
+export const skillsData = [
+    'Python', 'JavaScript', 'HTML', 'CSS', 'Git',
+    'MySQL', 'MongoDB', 'Docker', 'AWS', 'Figma',
+    'Canva', 'Microsoft Office', 'Selenium', 'Numpy',
+]

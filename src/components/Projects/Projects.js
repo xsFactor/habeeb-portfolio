@@ -1,47 +1,13 @@
-import React,{ useContext} from 'react';
-import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { projectsData } from '../../data/projectsData'
-import { HiArrowRight } from "react-icons/hi";
-
 import './Projects.css'
 import SingleProject from './SingleProject/SingleProject';
 
 function Projects() {
-
     const { theme } = useContext(ThemeContext);
-
-    
-    const useStyles = makeStyles(() => ({
-        viewAllBtn : {
-            color: theme.tertiary, 
-            backgroundColor: theme.primary,
-            transition: 'color 0.2s',
-            "&:hover": {
-                color: theme.secondary, 
-                backgroundColor: theme.primary,
-            }
-        },
-        viewArr : {
-            color: theme.tertiary, 
-            backgroundColor: theme.secondary70,
-            width: '40px',
-            height: '40px',
-            padding: '0.5rem',
-            fontSize: '1.05rem',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s',
-            "&:hover": {
-                color: theme.tertiary, 
-                backgroundColor: theme.secondary,
-            }
-        },
-    }));
-
-    const classes = useStyles();
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>
@@ -65,22 +31,84 @@ function Projects() {
                                     image={project.image}
                                 />
                             ))}
-                        </div> 
+                        </div>
 
                         {projectsData.length > 3 && (
                             <div className="projects--viewAll">
-                                <Link to="/projects">
-                                    <button className={classes.viewAllBtn}>
+                                <button
+                                    className="projects--viewAllBtn"
+                                    style={{ backgroundColor: theme.primary }}
+                                    onClick={() => setShowModal(true)}
+                                >
+                                    <span className="projects--viewAllText" style={{ color: theme.secondary }}>
                                         View All
-                                        <HiArrowRight className={classes.viewArr} />
-                                    </button>
-                                </Link>
+                                    </span>
+                                    <span className="projects--viewAllArrow" style={{ backgroundColor: theme.secondary, color: theme.primary }}>
+                                        →
+                                    </span>
+                                </button>
                             </div>
                         )}
                     </div>
+
+                    {/* Modal */}
+                    {showModal && (
+                        <div className="projects--modalOverlay" onClick={() => setShowModal(false)}>
+                            <div
+                                className="projects--modal"
+                                style={{ backgroundColor: theme.secondary }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Modal Header */}
+                                <div className="projects--modalHeader">
+                                    <h2 style={{ color: theme.primary }}>All Projects</h2>
+                                    <button
+                                        className="projects--modalClose"
+                                        style={{ backgroundColor: theme.primary, color: theme.secondary }}
+                                        onClick={() => setShowModal(false)}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+
+                                {/* Modal Body */}
+                                <div className="projects--modalBody">
+                                    {projectsData.map(project => (
+                                        <SingleProject
+                                            theme={theme}
+                                            key={project.id}
+                                            id={project.id}
+                                            name={project.projectName}
+                                            desc={project.projectDesc}
+                                            tags={project.tags}
+                                            code={project.code}
+                                            demo={project.demo}
+                                            image={project.image}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Modal Footer */}
+                                <div className="projects--modalFooter" style={{ borderTop: `1px solid ${theme.primary30}` }}>
+                                    <Link to="/projects" onClick={() => setShowModal(false)}>
+                                        <button
+                                            className="projects--gotoBtn"
+                                            style={{ backgroundColor: theme.primary }}
+                                        >
+                                            <span className="projects--viewAllText" style={{ color: theme.secondary }}>
+                                                Go to All Projects
+                                            </span>
+                                            <span className="projects--viewAllArrow" style={{ backgroundColor: theme.secondary, color: theme.primary }}>
+                                                →
+                                            </span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
-
         </>
     )
 }

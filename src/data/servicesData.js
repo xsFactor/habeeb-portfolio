@@ -1,81 +1,91 @@
 /* eslint-disable */
-import { BiShoppingBag, BiPencil } from "react-icons/bi";
-import { BsCodeSlash, BsClipboardData } from "react-icons/bs";
-import { AiOutlineMail, AiFillAudio } from "react-icons/ai";
-import { FaInternetExplorer,  FaChalkboardTeacher, FaCameraRetro, FaPinterest, FaVideo, FaTabletAlt, FaRegNewspaper } from "react-icons/fa";
+import { 
+    FaShieldAlt, FaSearch, FaBug, FaUserSecret, FaChalkboardTeacher,
+    FaProjectDiagram, FaNetworkWired, FaLaptopCode, FaFileAlt
+} from "react-icons/fa";
+import { 
+    MdSecurity, MdOutlineManageSearch, MdPolicy 
+} from "react-icons/md";
+import { 
+    BsShieldLock, BsGraphUp, BsPeopleFill 
+} from "react-icons/bs";
+import { 
+    GiCyberEye, GiMagnifyingGlass 
+} from "react-icons/gi";
+import { AiOutlineAudit } from "react-icons/ai";
 
- 
-
-export const servicesData = [
-    // {
-    //     id: 1,
-    //     title: 'Marketing',
-    //     icon: <BiShoppingBag/>
-    // },
+export const servicesCategories = [
+    {
+        id: 1,
+        category: 'Offensive Security',
+        icon: <FaBug />,
+        description: 'Proactive security testing to identify and exploit vulnerabilities before attackers do.',
+        services: [
+            { id: 1, title: 'Red Team Operations', icon: <FaUserSecret /> },
+            { id: 2, title: 'Penetration Testing', icon: <FaBug /> },
+            { id: 3, title: 'Vulnerability Assessment', icon: <BsShieldLock /> },
+            { id: 4, title: 'Social Engineering', icon: <BsPeopleFill /> },
+            { id: 5, title: 'Web App Testing', icon: <FaLaptopCode /> },
+            { id: 6, title: 'Network Security Testing', icon: <FaNetworkWired /> },
+        ]
+    },
     {
         id: 2,
-        title: 'Content Writing',
-        icon: <BiPencil /> 
+        category: 'OSINT & Intelligence',
+        icon: <FaSearch />,
+        description: 'Open source intelligence gathering and threat profiling using advanced research techniques.',
+        services: [
+            { id: 1, title: 'OSINT Investigations', icon: <GiMagnifyingGlass /> },
+            { id: 2, title: 'Threat Intelligence', icon: <GiCyberEye /> },
+            { id: 3, title: 'Digital Footprint Analysis', icon: <MdOutlineManageSearch /> },
+            { id: 4, title: 'Person of Interest Research', icon: <FaSearch /> },
+            { id: 5, title: 'Dark Web Monitoring', icon: <FaUserSecret /> },
+            { id: 6, title: 'Brand Protection', icon: <FaShieldAlt /> },
+        ]
     },
     {
         id: 3,
-        title: 'Email Marketing',
-        icon: <AiOutlineMail />
-    },
-    // {
-    //     id: 4,
-    //     title: 'Internet Research',
-    //     icon: <FaInternetExplorer />
-    // },
-    // {
-    //     id: 5,
-    //     title: 'Tutoring',
-    //     icon: <FaChalkboardTeacher />
-    // },
-
-    {
-        id: 6,
-        title: 'Web Design',
-        icon: <BsCodeSlash />
+        category: 'Cybercrime Analysis',
+        icon: <AiOutlineAudit />,
+        description: 'Digital forensics and cybercrime investigation to uncover and document evidence.',
+        services: [
+            { id: 1, title: 'Digital Forensics', icon: <AiOutlineAudit /> },
+            { id: 2, title: 'Incident Response', icon: <MdSecurity /> },
+            { id: 3, title: 'Malware Analysis', icon: <FaBug /> },
+            { id: 4, title: 'Log Analysis', icon: <BsGraphUp /> },
+            { id: 5, title: 'Evidence Collection', icon: <FaFileAlt /> },
+            { id: 6, title: 'Threat Hunting', icon: <GiCyberEye /> },
+        ]
     },
     {
-        id: 7,
-        title: 'Photography',
-        icon: <FaCameraRetro />
+        id: 4,
+        category: 'Security Consulting',
+        icon: <MdPolicy />,
+        description: 'Strategic security advisory to help organizations build and improve their security posture.',
+        services: [
+            { id: 1, title: 'Security Policy Development', icon: <MdPolicy /> },
+            { id: 2, title: 'Risk Assessment', icon: <BsGraphUp /> },
+            { id: 3, title: 'Compliance Advisory', icon: <AiOutlineAudit /> },
+            { id: 4, title: 'Security Architecture Review', icon: <FaNetworkWired /> },
+            { id: 5, title: 'Vulnerability Management', icon: <BsShieldLock /> },
+            { id: 6, title: 'Security Roadmap Planning', icon: <FaProjectDiagram /> },
+        ]
     },
-    // {
-    //     id: 8,
-    //     title: 'Pinterest Virtual Assistant',
-    //     icon: <FaPinterest />
-    // }, 
     {
-        id: 9,
-        title: 'Video Editing',
-        icon: <FaVideo />
+        id: 5,
+        category: 'Training & Awareness',
+        icon: <FaChalkboardTeacher />,
+        description: 'Cybersecurity training and awareness programs for individuals and organizations.',
+        services: [
+            { id: 1, title: 'Security Awareness Training', icon: <FaChalkboardTeacher /> },
+            { id: 2, title: 'Phishing Simulation', icon: <FaUserSecret /> },
+            { id: 3, title: 'OSINT Training', icon: <FaSearch /> },
+            { id: 4, title: 'Penetration Testing Training', icon: <FaBug /> },
+            { id: 5, title: 'CTF Coaching', icon: <FaLaptopCode /> },
+            { id: 6, title: 'Corporate Workshops', icon: <BsPeopleFill /> },
+        ]
     },
-    // {
-    //     id: 10,
-    //     title: 'Data Entry', 
-    //     icon: <BsClipboardData />
-    // },
-    {
-        id: 11,
-        title: 'Ebook Writing',
-        icon: <FaTabletAlt />
-    },
-    // {
-    //     id: 12,
-    //     title: 'Audio Transcription',
-    //     icon: <AiFillAudio />
-    // },
-    {
-        id: 13,
-        title: 'Blog Posting',
-        icon: <FaRegNewspaper />
-    },
-
 ]
 
-// Uncomment your required service.
-// Couldn't find the required services? Raise an issue on github at https://github.com/hhhrrrttt222111/developer-portfolio/issues/new
-// You can also add on your own 😉.
+// Keep for backward compatibility
+export const servicesData = []

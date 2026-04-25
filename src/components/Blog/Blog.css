@@ -7,8 +7,6 @@
     padding: 2rem;
     overflow-x: hidden;
 }
-
-
 .blog--header {
     display: flex;
     align-items: center;
@@ -16,14 +14,11 @@
     width: 100%;
     margin: 1rem;
 }
-
-
 .blog--header h1 {
     margin-bottom: 40px;
     font-size: 3.5rem;
     font-family: var(--primaryFont);
 }
-
 .blog--body {
     width: 100%;
     display: flex;
@@ -31,7 +26,6 @@
     align-items: center;
     justify-content: center;
 }
-
 .blog--bodyContainer {
     display: flex;
     align-items: center;
@@ -40,6 +34,7 @@
     gap: 4.5rem;
 }
 
+/* ── View All ── */
 .blog--viewAll {
     width: 100%;
     margin-top: 1rem;
@@ -48,30 +43,124 @@
     align-items: center;
     justify-content: flex-end;
 }
-
-.blog--viewAll a button {
-    outline: none;
-    border: none;
-    width: 150px;
-    height: 48px;
+.blog--viewAllBtn {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-transform: inherit;
-    border-radius: 45px;
-    font-size: 1.05rem;
+    gap: 0.75rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 50px;
     font-family: var(--primaryFont);
-    font-weight: 500;
-    padding-left: 1.5rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+.blog--viewAllBtn:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+}
+.blog--viewAllText {
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.blog--viewAllArrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
-
-@media (min-width: 992px) and (max-width: 1380px) {
-
+/* ── Modal Overlay ── */
+.blog--modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: blogFadeIn 0.2s ease-in-out;
+}
+@keyframes blogFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
+/* ── Modal Box ── */
+.blog--modal {
+    width: 90%;
+    max-width: 1100px;
+    max-height: 85vh;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: blogSlideUp 0.25s ease-in-out;
+}
+@keyframes blogSlideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.blog--modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+.blog--modalHeader > h2 {
+    font-family: var(--primaryFont);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+.blog--modalClose {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+    flex-shrink: 0;
+}
+.blog--modalClose:hover {
+    opacity: 0.8;
+    transform: rotate(90deg);
+}
 
+/* ── Modal Scrollable Body ── */
+.blog--modalBody {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 0.5rem 0.25rem;
+}
+.blog--modalBody::-webkit-scrollbar {
+    width: 6px;
+}
+.blog--modalBody::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+/* ── Responsive ── */
+@media (min-width: 992px) and (max-width: 1380px) {}
 @media screen and (max-width: 992px) {
     .blog--bodyContainer {
         display: flex;
@@ -80,41 +169,73 @@
         justify-content: center;
         width: 100%;
     }
+    .blog--modalBody {
+        flex-direction: column;
+        align-items: center;
+    }
 }
-
 @media screen and (max-width: 800px) {
     .blog--header h1 {
         font-size: 3rem;
         margin-bottom: 30px;
     }
+    .blog--modal {
+        padding: 1.5rem;
+    }
+    .blog--modalHeader > h2 {
+        font-size: 1.6rem;
+    }
 }
-
 @media screen and (max-width: 600px) {
     .blog--header h1 {
         font-size: 2.5rem;
         margin-bottom: 20px;
     }
     .blog--viewAll {
-        position: relative;
-        margin-top: 2.5rem;
-    }
-    .blog--viewAll a {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);  
+        justify-content: center;
+        margin-top: 2rem;
     }
 }
+@media screen and (max-width: 400px) {}
 
-@media screen and (max-width: 400px) {
-
-}
-  
 @media only screen and (min-device-width: 320px) and (max-device-width: 
-  480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) {
+  480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) {}
+@media only screen and (device-width: 768px) {}
 
+/* ── Modal Footer ── */
+.blog--modalFooter {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.25rem;
+    margin-top: 1rem;
+    flex-shrink: 0;
+}
+.blog--modalFooter a {
+    text-decoration: none;
+}
+.blog--gotoBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--primaryFont);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+.blog--gotoBtn:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
 }
 
-
-@media only screen and (device-width: 768px) {
-
+/* ── Dark Mode ── */
+.blog {
+    background: linear-gradient(135deg, #0a0a0a 0%, #0d1a0d 50%, #0a0a0a 100%) !important;
+}
+.blog--header h1 {
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+    filter: brightness(1.2);
 }

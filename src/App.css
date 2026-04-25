@@ -4,3 +4,53 @@
     /* --primaryFont: 'Raleway', sans-serif; */
 }
 
+/* ── Section Dividers ── */
+.about,
+.skills,
+.experience,
+.education,
+.projects,
+.services,
+.achievement,
+.blog,
+.contacts {
+    position: relative;
+}
+
+.about::after,
+.skills::after,
+.experience::after,
+.education::after,
+.projects::after,
+.services::after,
+.achievement::after,
+.blog::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        #3fc337 20%,
+        #3fc337 80%,
+        transparent 100%
+    );
+    border-radius: 2px;
+    animation: dividerPulse 3s ease-in-out infinite;
+}
+
+@keyframes dividerPulse {
+    0%, 100% {
+        opacity: 0.3;
+        box-shadow: 0 0 6px #3fc337;
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 16px #3fc337, 0 0 30px #3fc33740;
+    }
+}

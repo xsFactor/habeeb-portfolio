@@ -1,7 +1,6 @@
 .experience{
     min-height: 100vh;
 }
-
 .experience-body {
     display: flex;
     flex-direction: row;
@@ -9,7 +8,6 @@
     justify-content: center;
     width: 100%;
 }
-
 .experience-description {
     width: 100%;
     flex: 0.65;
@@ -20,13 +18,11 @@
     justify-content: center;
     margin-right: 2rem;
 }
-
 .experience-description > h1 {
     font-size: 3.5rem;
     font-family: var(--primaryFont);
     margin-bottom: 2rem;
 }
-
 .experience-card {
     display: flex;
     flex-direction: row;
@@ -39,7 +35,6 @@
     margin-bottom: 1.5rem;
     transition: background-color 200ms ease-in-out;
 }
-
 .expcard-img {
     border-radius: 50%;
     width: 55px;
@@ -49,35 +44,29 @@
     justify-content: center;
     flex-shrink: 0;
 }
-
 .expcard-img > img {
     width: 36px;
     pointer-events: none;
 }
-
 .experience-details {
     margin-left: 0.6rem;
 }
-
 .experience-details > h6 {
     font-family: var(--primaryFont);
     font-size: 0.85rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
-
 .experience-details > h4 {
     font-family: var(--primaryFont);
     font-size: 1.225rem;
     font-weight: 600;
 }
-
 .experience-details > h5 {
     font-family: var(--primaryFont);
     font-size: 1.15rem;
     font-weight: 600;
 }
-
 .experience-image {
     box-sizing: border-box;
     padding: 1rem;
@@ -86,22 +75,143 @@
     margin-top: 1rem;
     pointer-events: none;
 }
-
 .experience-image > img {
     width: 100%;
     pointer-events: none;
 }
 
-
-
-
-
-
-@media (min-width: 992px) and (max-width: 1380px) {
-
+/* ── View All Button ── */
+.exp-view-all-btn {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--primaryFont);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+.exp-view-all-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+}
+.exp-view-all-text {
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.exp-view-all-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
+/* ── Modal Overlay ── */
+.exp-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeInOverlay 0.2s ease-in-out;
+}
 
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Modal Box ── */
+.exp-modal {
+    width: 90%;
+    max-width: 650px;
+    max-height: 80vh;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.25s ease-in-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.exp-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.exp-modal-header > h2 {
+    font-family: var(--primaryFont);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.exp-modal-close {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+    flex-shrink: 0;
+}
+
+.exp-modal-close:hover {
+    opacity: 0.8;
+    transform: rotate(90deg);
+}
+
+/* ── Modal Scrollable Body ── */
+.exp-modal-body {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 0.25rem;
+}
+
+.exp-modal-body .experience-card {
+    width: 100%;
+}
+
+/* scrollbar styling */
+.exp-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.exp-modal-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+/* ── Responsive ── */
+@media (min-width: 992px) and (max-width: 1380px) {
+}
 @media screen and (max-width: 992px) {
     .experience {
         min-height: 100%;
@@ -122,7 +232,6 @@
         margin-bottom: 1.5rem;
     }
 }
-
 @media screen and (max-width: 800px) {
     .experience-description > h1{
         font-size: 3rem;
@@ -142,7 +251,6 @@
         width: 45px;
         height: 45px;
     }
-    
     .expcard-img > img {
         width: 30px;
     }
@@ -150,34 +258,44 @@
         font-size: 0.85rem;
         margin-bottom: 0.45rem;
     }
-    
     .experience-details > h4 {
         font-size: 1.125rem;
         line-height: 126%;
     }
-    
     .experience-details > h5 {
         font-size: 1.05rem;
         line-height: 126%;
     }
+    .exp-modal {
+        padding: 1.5rem;
+        max-height: 85vh;
+    }
+    .exp-modal-header > h2 {
+        font-size: 1.6rem;
+    }
 }
-
 @media screen and (max-width: 600px) {
     .experience-description > h1{
         font-size: 2.5rem;
     }
 }
-
 @media screen and (max-width: 400px) {
-
 }
   
 @media only screen and (min-device-width: 320px) and (max-device-width: 
   480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) {
-
+}
+@media only screen and (device-width: 768px) {
 }
 
-
-@media only screen and (device-width: 768px) {
-
+/* ── Dark Mode ── */
+.experience {
+    background: linear-gradient(135deg, #0d1a0d 0%, #0a0a0a 100%) !important;
+}
+.experience-description > h1 {
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+    filter: brightness(1.2);
+}
+.experience-card:hover {
+    box-shadow: 0 0 20px rgba(63, 195, 55, 0.3), 0 0 40px rgba(63, 195, 55, 0.1) !important;
 }

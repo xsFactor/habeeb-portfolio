@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavHashLink as NavLink } from 'react-router-hash-link';
 import Fade from 'react-reveal/Fade';
 import { IoMenuSharp, IoHomeSharp } from 'react-icons/io5';
@@ -16,8 +16,25 @@ import { ThemeContext } from '../../contexts/ThemeContext';
 
 function Navbar() {
     const { theme, setHandleDrawer } = useContext(ThemeContext);
-
     const [open, setOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Glassmorphism trigger
+            setScrolled(window.scrollY > 50);
+
+            // Scroll progress
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -32,7 +49,7 @@ function Navbar() {
     const useStyles = makeStyles((t) => ({
         navMenu: {
             fontSize: '2.5rem',
-            color: theme.tertiary,
+            color: scrolled ? theme.primary : theme.primary,
             cursor: 'pointer',
             transform: 'translateY(-10px)',
             transition: 'color 0.3s',
@@ -131,159 +148,117 @@ function Navbar() {
     };
 
     return (
-        <div className='navbar'>
-            <div className='navbar--container'>
-                <h1 style={{ color: theme.secondary }}>
-                    {shortname(headerData.name)}
-                </h1>
-
-                <IoMenuSharp
-                    className={classes.navMenu}
-                    onClick={handleDrawerOpen}
-                    aria-label='Menu'
+        <>
+            {/* ── Scroll Progress Bar ── */}
+            <div className='scroll-progress-container'>
+                <div
+                    className='scroll-progress-bar'
+                    style={{
+                        width: `${scrollProgress}%`,
+                        backgroundColor: theme.primary,
+                        boxShadow: `0 0 8px ${theme.primary}`,
+                    }}
                 />
             </div>
-            <Drawer
-                variant='temporary'
-                onClose={(event, reason) => {
-                    if (reason !== 'backdropClick') {
-                        handleDrawerClose();
-                    } else if (reason !== 'escapeKeyDown') {
-                        handleDrawerClose();
-                    }
-                }}
-                anchor='left'
-                open={open}
-                classes={{ paper: classes.MuiDrawer }}
-                className='drawer'
-                disableScrollLock={true}
-            >
-                <div className='div-closebtn'>
-                    <CloseIcon
-                        onClick={handleDrawerClose}
-                        onKeyDown={(e) => {
-                            if (e.key === ' ' || e.key === 'Enter') {
-                                e.preventDefault();
-                                handleDrawerClose();
-                            }
-                        }}
-                        className={classes.closebtnIcon}
-                        role='button'
-                        tabIndex='0'
-                        aria-label='Close'
+
+            <div className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+                <div className='navbar--container'>
+                    <h1 style={{ color: scrolled ? theme.primary : theme.secondary }}>
+                        {shortname(headerData.name)}
+                    </h1>
+                    <IoMenuSharp
+                        className={classes.navMenu}
+                        onClick={handleDrawerOpen}
+                        aria-label='Menu'
                     />
                 </div>
-                <br />
 
-                <div onClick={handleDrawerClose}>
-                    <div className='navLink--container'>
-                        <Fade left>
-                            <NavLink
-                                to='/'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <IoHomeSharp
-                                        className={classes.drawerIcon}
-                                    />
-                                    <span className={classes.drawerLinks}>
-                                        Home
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink
-                                to='/#about'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <FaUser className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>
-                                        About
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink
-                                to='/#resume'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <HiDocumentText
-                                        className={classes.drawerIcon}
-                                    />
-                                    <span className={classes.drawerLinks}>
-                                        Resume
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink
-                                to='/#services'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <BsFillGearFill
-                                        className={classes.drawerIcon}
-                                    />
-                                    <span className={classes.drawerLinks}>
-                                        Services
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink
-                                to='/#blog'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <FaFolderOpen
-                                        className={classes.drawerIcon}
-                                    />
-                                    <span className={classes.drawerLinks}>
-                                        Blog
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
-
-                        <Fade left>
-                            <NavLink
-                                to='/#contacts'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <div className={classes.drawerItem}>
-                                    <MdPhone className={classes.drawerIcon} />
-                                    <span className={classes.drawerLinks}>
-                                        Contact
-                                    </span>
-                                </div>
-                            </NavLink>
-                        </Fade>
+                <Drawer
+                    variant='temporary'
+                    onClose={(event, reason) => {
+                        if (reason !== 'backdropClick') {
+                            handleDrawerClose();
+                        } else if (reason !== 'escapeKeyDown') {
+                            handleDrawerClose();
+                        }
+                    }}
+                    anchor='left'
+                    open={open}
+                    classes={{ paper: classes.MuiDrawer }}
+                    className='drawer'
+                    disableScrollLock={true}
+                >
+                    <div className='div-closebtn'>
+                        <CloseIcon
+                            onClick={handleDrawerClose}
+                            onKeyDown={(e) => {
+                                if (e.key === ' ' || e.key === 'Enter') {
+                                    e.preventDefault();
+                                    handleDrawerClose();
+                                }
+                            }}
+                            className={classes.closebtnIcon}
+                            role='button'
+                            tabIndex='0'
+                            aria-label='Close'
+                        />
                     </div>
-                </div>
-            </Drawer>
-        </div>
+                    <br />
+                    <div onClick={handleDrawerClose}>
+                        <div className='navLink--container'>
+                            <Fade left>
+                                <NavLink to='/' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <IoHomeSharp className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>Home</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                            <Fade left>
+                                <NavLink to='/#about' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <FaUser className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>About</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                            <Fade left>
+                                <NavLink to='/#resume' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <HiDocumentText className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>Resume</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                            <Fade left>
+                                <NavLink to='/#services' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <BsFillGearFill className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>Services</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                            <Fade left>
+                                <NavLink to='/#blog' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <FaFolderOpen className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>Blog</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                            <Fade left>
+                                <NavLink to='/#contacts' smooth={true} spy='true' duration={2000}>
+                                    <div className={classes.drawerItem}>
+                                        <MdPhone className={classes.drawerIcon} />
+                                        <span className={classes.drawerLinks}>Contact</span>
+                                    </div>
+                                </NavLink>
+                            </Fade>
+                        </div>
+                    </div>
+                </Drawer>
+            </div>
+        </>
     );
 }
 

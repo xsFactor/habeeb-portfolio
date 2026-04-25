@@ -1,24 +1,56 @@
 .backToTop {
-    position: fixed; 
-    right: 10px;
-    bottom: 60px;
-    height: 30px;
-    font-size: 3rem;
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
     z-index: 999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
-.backToTop button {
-    outline: none;
-    border: none;
+.backToTop--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.backToTop--btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
     cursor: pointer;
-    background: none;
-    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.backToTop--btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+.backToTop--prompt {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.backToTop--cmd {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
 @media screen and (max-width: 800px) {
-    .backToTop { 
-        right: -10px;
-        bottom: 50px;
-        font-size: 2.75rem;
+    .backToTop {
+        right: 12px;
+        bottom: 30px;
+    }
+    .backToTop--btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
     }
 }

@@ -1,0 +1,25 @@
+/* ── Section Entrance Animations ── */
+
+.section--hidden {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Directions */
+.section--from-up {
+    transform: translateY(50px);
+}
+
+.section--from-left {
+    transform: translateX(-60px);
+}
+
+.section--from-right {
+    transform: translateX(60px);
+}
+
+/* Triggered when visible */
+.section--visible {
+    opacity: 1;
+    transform: translate(0, 0) !important;
+}

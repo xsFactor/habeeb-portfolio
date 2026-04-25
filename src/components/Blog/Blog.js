@@ -1,44 +1,13 @@
-import React,{ useContext} from 'react';
-import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import { HiArrowRight } from "react-icons/hi";
-
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Blog.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { blogData } from '../../data/blogData'
 import SingleBlog from './SingleBlog/SingleBlog';
 
-
 function Blog() {
-
     const { theme } = useContext(ThemeContext);
-
-    const useStyles = makeStyles(() => ({
-        viewAllBtn : {
-            color: theme.tertiary, 
-            backgroundColor: theme.primary,
-            "&:hover": {
-                color: theme.secondary, 
-                backgroundColor: theme.primary,
-            }
-        },
-        viewArr : {
-            color: theme.tertiary, 
-            backgroundColor: theme.secondary70,
-            width: '40px',
-            height: '40px',
-            padding: '0.5rem',
-            fontSize: '1.05rem',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            "&:hover": {
-                color: theme.tertiary, 
-                backgroundColor: theme.secondary,
-            }
-        },
-    }));
-
-    const classes = useStyles();
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>
@@ -50,7 +19,7 @@ function Blog() {
                     <div className="blog--body">
                         <div className="blog--bodyContainer">
                             {blogData.slice(0, 3).reverse().map(blog => (
-                                <SingleBlog 
+                                <SingleBlog
                                     theme={theme}
                                     title={blog.title}
                                     desc={blog.description}
@@ -61,22 +30,83 @@ function Blog() {
                                     id={blog.id}
                                 />
                             ))}
-                        </div> 
+                        </div>
 
                         {blogData.length > 3 && (
                             <div className="blog--viewAll">
-                                <Link to="/blog">
-                                    <button className={classes.viewAllBtn}>
+                                <button
+                                    className="blog--viewAllBtn"
+                                    style={{ backgroundColor: theme.primary }}
+                                    onClick={() => setShowModal(true)}
+                                >
+                                    <span className="blog--viewAllText" style={{ color: theme.secondary }}>
                                         View All
-                                        <HiArrowRight className={classes.viewArr} />
-                                    </button>
-                                </Link>
+                                    </span>
+                                    <span className="blog--viewAllArrow" style={{ backgroundColor: theme.secondary, color: theme.primary }}>
+                                        →
+                                    </span>
+                                </button>
                             </div>
                         )}
                     </div>
+
+                    {/* Modal */}
+                    {showModal && (
+                        <div className="blog--modalOverlay" onClick={() => setShowModal(false)}>
+                            <div
+                                className="blog--modal"
+                                style={{ backgroundColor: theme.secondary }}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Modal Header */}
+                                <div className="blog--modalHeader">
+                                    <h2 style={{ color: theme.primary }}>All Blogs</h2>
+                                    <button
+                                        className="blog--modalClose"
+                                        style={{ backgroundColor: theme.primary, color: theme.secondary }}
+                                        onClick={() => setShowModal(false)}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+
+                                {/* Modal Body */}
+                                <div className="blog--modalBody">
+                                    {blogData.slice().reverse().map(blog => (
+                                        <SingleBlog
+                                            theme={theme}
+                                            title={blog.title}
+                                            desc={blog.description}
+                                            date={blog.date}
+                                            image={blog.image}
+                                            url={blog.url}
+                                            key={blog.id}
+                                            id={blog.id}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Modal Footer */}
+                                <div className="blog--modalFooter" style={{ borderTop: `1px solid ${theme.primary30}` }}>
+                                    <Link to="/blog" onClick={() => setShowModal(false)}>
+                                        <button
+                                            className="blog--gotoBtn"
+                                            style={{ backgroundColor: theme.primary }}
+                                        >
+                                            <span className="blog--viewAllText" style={{ color: theme.secondary }}>
+                                                Go to All Blogs
+                                            </span>
+                                            <span className="blog--viewAllArrow" style={{ backgroundColor: theme.secondary, color: theme.primary }}>
+                                                →
+                                            </span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
-
         </>
     )
 }
