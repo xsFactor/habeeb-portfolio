@@ -39,7 +39,7 @@ function Footer() {
 
                 {/* Tagline */}
                 <p className='footer--tagline' style={{ color: '#555', fontFamily: 'Courier New, monospace' }}>
-                    // Securing the digital world, one line at a time
+                    Securing the digital world, one line at a time
                 </p>
 
                 {/* Socials */}
