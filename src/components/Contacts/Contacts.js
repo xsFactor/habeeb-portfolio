@@ -3,7 +3,6 @@ import { Snackbar, IconButton, SnackbarContent } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import isEmail from 'validator/lib/isEmail';
-import { makeStyles } from '@material-ui/core/styles';
 import {
     FaTwitter,
     FaLinkedinIn,
@@ -15,9 +14,10 @@ import {
     FaInstagram,
     FaGitlab,
     FaMediumM,
+    FaTerminal,
 } from 'react-icons/fa';
 import { FaTiktok } from 'react-icons/fa6';
-import { AiOutlineSend, AiOutlineCheckCircle } from 'react-icons/ai';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { FiPhone, FiAtSign } from 'react-icons/fi';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 
@@ -41,95 +41,12 @@ function Contacts() {
         setOpen(false);
     };
 
-    const useStyles = makeStyles((t) => ({
-        input: {
-            border: `4px solid ${theme.primary80}`,
-            backgroundColor: `${theme.secondary}`,
-            color: `${theme.tertiary}`,
-            fontFamily: 'var(--primaryFont)',
-            fontWeight: 500,
-            transition: 'border 0.2s ease-in-out',
-            '&:focus': {
-                border: `4px solid ${theme.primary600}`,
-            },
-        },
-        message: {
-            border: `4px solid ${theme.primary80}`,
-            backgroundColor: `${theme.secondary}`,
-            color: `${theme.tertiary}`,
-            fontFamily: 'var(--primaryFont)',
-            fontWeight: 500,
-            transition: 'border 0.2s ease-in-out',
-            '&:focus': {
-                border: `4px solid ${theme.primary600}`,
-            },
-        },
-        label: {
-            backgroundColor: `${theme.secondary}`,
-            color: `${theme.primary}`,
-            fontFamily: 'var(--primaryFont)',
-            fontWeight: 600,
-            fontSize: '0.9rem',
-            padding: '0 5px',
-            transform: 'translate(25px,50%)',
-            display: 'inline-flex',
-        },
-        socialIcon: {
-            width: '45px',
-            height: '45px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '21px',
-            backgroundColor: theme.primary,
-            color: theme.secondary,
-            transition: '250ms ease-in-out',
-            '&:hover': {
-                transform: 'scale(1.1)',
-                color: theme.secondary,
-                backgroundColor: theme.tertiary,
-            },
-        },
-        detailsIcon: {
-            backgroundColor: theme.primary,
-            color: theme.secondary,
-            borderRadius: '50%',
-            width: '45px',
-            height: '45px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '23px',
-            transition: '250ms ease-in-out',
-            flexShrink: 0,
-            '&:hover': {
-                transform: 'scale(1.1)',
-                color: theme.secondary,
-                backgroundColor: theme.tertiary,
-            },
-        },
-        submitBtn: {
-            backgroundColor: theme.primary,
-            color: theme.secondary,
-            transition: '250ms ease-in-out',
-            '&:hover': {
-                transform: 'scale(1.08)',
-                color: theme.secondary,
-                backgroundColor: theme.tertiary,
-            },
-        },
-    }));
-
-    const classes = useStyles();
-
     const handleContactForm = (e) => {
         e.preventDefault();
         if (name && email && message) {
             if (isEmail(email)) {
                 const responseData = { name, email, message };
                 axios.post(contactsData.sheetAPI, responseData).then((res) => {
-                    console.log('success');
                     setSuccess(true);
                     setErrMsg('');
                     setName('');
@@ -148,166 +65,165 @@ function Contacts() {
     };
 
     return (
-        <div className='contacts' id='contacts' style={{ backgroundColor: theme.secondary }}>
-            <div className='contacts--container'>
-                <h1 style={{ color: theme.primary }}>Contacts</h1>
-                <div className='contacts-body'>
-                    <div className='contacts-form'>
-                        <form onSubmit={handleContactForm}>
-                            <div className='input-container'>
-                                <label htmlFor='Name' className={classes.label}>Name</label>
-                                <input
-                                    placeholder='John Doe'
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    type='text'
-                                    name='Name'
-                                    className={`form-input ${classes.input}`}
-                                />
-                            </div>
-                            <div className='input-container'>
-                                <label htmlFor='Email' className={classes.label}>Email</label>
-                                <input
-                                    placeholder='John@doe.com'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    type='email'
-                                    name='Email'
-                                    className={`form-input ${classes.input}`}
-                                />
-                            </div>
-                            <div className='input-container'>
-                                <label htmlFor='Message' className={classes.label}>Message</label>
-                                <textarea
-                                    placeholder='Type your message....'
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    type='text'
-                                    name='Message'
-                                    className={`form-message ${classes.message}`}
-                                />
-                            </div>
-                            <div className='submit-btn'>
-                                <button type='submit' className={classes.submitBtn}>
-                                    <p>{!success ? 'Send' : 'Sent'}</p>
-                                    <div className='submit-icon'>
-                                        <AiOutlineSend
-                                            className='send-icon'
-                                            style={{
-                                                animation: !success ? 'initial' : 'fly 0.8s linear both',
-                                                position: success ? 'absolute' : 'initial',
-                                            }}
-                                        />
-                                        <AiOutlineCheckCircle
-                                            className='success-icon'
-                                            style={{
-                                                display: !success ? 'none' : 'inline-flex',
-                                                opacity: !success ? '0' : '1',
-                                            }}
-                                        />
-                                    </div>
-                                </button>
-                            </div>
-                        </form>
-                        <Snackbar
-                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                            open={open}
-                            autoHideDuration={4000}
-                            onClose={handleClose}
-                        >
-                            <SnackbarContent
-                                action={
-                                    <React.Fragment>
-                                        <IconButton size='small' aria-label='close' color='inherit' onClick={handleClose}>
-                                            <CloseIcon fontSize='small' />
-                                        </IconButton>
-                                    </React.Fragment>
-                                }
-                                style={{
-                                    backgroundColor: theme.primary,
-                                    color: theme.secondary,
-                                    fontFamily: 'var(--primaryFont)',
-                                }}
-                                message={errMsg}
-                            />
-                        </Snackbar>
+        <div className='contacts' id='contacts'
+            style={{ background: 'linear-gradient(135deg, #0a0a0a 0%, #0d1f0d 50%, #0a0a0a 100%)' }}
+        >
+            {/* Header */}
+            <div className='contacts--header'>
+                <h1 style={{ color: theme.primary }}>Contact</h1>
+                <p className='contacts--subtitle' style={{ color: '#666' }}>
+                    <span style={{ color: theme.primary }}>➜ </span>
+                    ./send-message.sh --secure --encrypted
+                </p>
+            </div>
+
+            <div className='contacts--wrapper'>
+
+                {/* ── Terminal Form ── */}
+                <div className='contacts--terminal'
+                    style={{
+                        border: `1px solid ${theme.primary}30`,
+                        boxShadow: `0 0 30px ${theme.primary}10`,
+                    }}
+                >
+                    <div className='contacts--terminal-bar'
+                        style={{ backgroundColor: '#1a1a1a', borderBottom: `1px solid ${theme.primary}20` }}
+                    >
+                        <span className='ct-btn ct-red' />
+                        <span className='ct-btn ct-yellow' />
+                        <span className='ct-btn ct-green' style={{ backgroundColor: theme.primary }} />
+                        <span className='ct-title' style={{ color: theme.primary }}>
+                            <FaTerminal style={{ marginRight: '5px', fontSize: '0.7rem' }} />
+                            message.sh
+                        </span>
                     </div>
 
-                    <div className='contacts-details'>
-                        <a href={`mailto:${contactsData.email}`} className='personal-details'>
-                            <div className={classes.detailsIcon}><FiAtSign /></div>
-                            <p style={{ color: theme.tertiary }}>{contactsData.email}</p>
-                        </a>
-                        <a href={`tel:${contactsData.phone}`} className='personal-details'>
-                            <div className={classes.detailsIcon}><FiPhone /></div>
-                            <p style={{ color: theme.tertiary }}>{contactsData.phone}</p>
-                        </a>
-                        <div className='personal-details'>
-                            <div className={classes.detailsIcon}><HiOutlineLocationMarker /></div>
-                            <p style={{ color: theme.tertiary }}>{contactsData.address}</p>
-                        </div>
+                    <div className='contacts--form-body'>
+                        {success ? (
+                            <div className='contacts--success'>
+                                <AiOutlineCheckCircle style={{ color: theme.primary, fontSize: '3rem' }} />
+                                <p style={{ color: theme.primary, fontFamily: 'Courier New, monospace', marginTop: '1rem' }}>
+                                    ➜ Message sent successfully!
+                                </p>
+                                <p style={{ color: '#666', fontFamily: 'Courier New, monospace', fontSize: '0.85rem' }}>
+                                    I'll get back to you soon.
+                                </p>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleContactForm}>
+                                <div className='ct-field'>
+                                    <label style={{ color: theme.primary }}>
+                                        <span className='ct-prompt'>➜ </span>enter_name:
+                                    </label>
+                                    <input
+                                        placeholder='John Doe'
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        type='text'
+                                        className='ct-input'
+                                        style={{ borderBottom: `1px solid ${theme.primary}50`, color: '#fff', caretColor: theme.primary }}
+                                    />
+                                </div>
+                                <div className='ct-field'>
+                                    <label style={{ color: theme.primary }}>
+                                        <span className='ct-prompt'>➜ </span>enter_email:
+                                    </label>
+                                    <input
+                                        placeholder='john@doe.com'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        type='email'
+                                        className='ct-input'
+                                        style={{ borderBottom: `1px solid ${theme.primary}50`, color: '#fff', caretColor: theme.primary }}
+                                    />
+                                </div>
+                                <div className='ct-field'>
+                                    <label style={{ color: theme.primary }}>
+                                        <span className='ct-prompt'>➜ </span>enter_message:
+                                    </label>
+                                    <textarea
+                                        placeholder='Type your message...'
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        className='ct-textarea'
+                                        style={{ borderBottom: `1px solid ${theme.primary}50`, color: '#fff', caretColor: theme.primary }}
+                                    />
+                                </div>
+                                <button
+                                    type='submit'
+                                    className='ct-submit'
+                                    style={{ backgroundColor: theme.primary, color: '#0a0a0a' }}
+                                >
+                                    <span style={{ fontFamily: 'Courier New, monospace' }}>➜ </span>
+                                    ./send.sh
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
 
-                        <div className='socialmedia-icons'>
-                            {socialsData.twitter && (
-                                <a href={socialsData.twitter} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaTwitter aria-label='Twitter' />
-                                </a>
-                            )}
-                            {socialsData.github && (
-                                <a href={socialsData.github} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaGithub aria-label='GitHub' />
-                                </a>
-                            )}
-                            {socialsData.linkedIn && (
-                                <a href={socialsData.linkedIn} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaLinkedinIn aria-label='LinkedIn' />
-                                </a>
-                            )}
-                            {socialsData.instagram && (
-                                <a href={socialsData.instagram} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaInstagram aria-label='Instagram' />
-                                </a>
-                            )}
-                            {socialsData.tiktok && (
-                                <a href={socialsData.tiktok} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaTiktok aria-label='TikTok' />
-                                </a>
-                            )}
-                            {socialsData.medium && (
-                                <a href={socialsData.medium} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaMediumM aria-label='Medium' />
-                                </a>
-                            )}
-                            {socialsData.youtube && (
-                                <a href={socialsData.youtube} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaYoutube aria-label='YouTube' />
-                                </a>
-                            )}
-                            {socialsData.reddit && (
-                                <a href={socialsData.reddit} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaRedditAlien aria-label='Reddit' />
-                                </a>
-                            )}
-                            {socialsData.stackOverflow && (
-                                <a href={socialsData.stackOverflow} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaStackOverflow aria-label='Stack Overflow' />
-                                </a>
-                            )}
-                            {socialsData.codepen && (
-                                <a href={socialsData.codepen} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaCodepen aria-label='CodePen' />
-                                </a>
-                            )}
-                            {socialsData.gitlab && (
-                                <a href={socialsData.gitlab} target='_blank' rel='noreferrer' className={classes.socialIcon}>
-                                    <FaGitlab aria-label='GitLab' />
-                                </a>
-                            )}
+                {/* ── Info Panel ── */}
+                <div className='contacts--info'>
+                    <div className='contacts--details-panel'
+                        style={{ border: `1px solid ${theme.primary}20`, backgroundColor: '#0d0d0d' }}
+                    >
+                        <div className='contacts--details-header'
+                            style={{ borderBottom: `1px solid ${theme.primary}20` }}
+                        >
+                            <span style={{ color: theme.primary, fontFamily: 'Courier New, monospace', fontSize: '0.85rem' }}>
+                                ➜ cat contact-info.txt
+                            </span>
+                        </div>
+                        <div className='contacts--details-body'>
+                            <a href={`mailto:${contactsData.email}`} className='ct-detail-item'>
+                                <div className='ct-detail-icon' style={{ color: theme.primary }}><FiAtSign /></div>
+                                <p style={{ color: '#ccc' }}>{contactsData.email}</p>
+                            </a>
+                            <a href={`tel:${contactsData.phone}`} className='ct-detail-item'>
+                                <div className='ct-detail-icon' style={{ color: theme.primary }}><FiPhone /></div>
+                                <p style={{ color: '#ccc' }}>{contactsData.phone}</p>
+                            </a>
+                            <div className='ct-detail-item'>
+                                <div className='ct-detail-icon' style={{ color: theme.primary }}><HiOutlineLocationMarker /></div>
+                                <p style={{ color: '#ccc' }}>{contactsData.address}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='contacts--socials-panel'
+                        style={{ border: `1px solid ${theme.primary}20`, backgroundColor: '#0d0d0d' }}
+                    >
+                        <div className='contacts--details-header'
+                            style={{ borderBottom: `1px solid ${theme.primary}20` }}
+                        >
+                            <span style={{ color: theme.primary, fontFamily: 'Courier New, monospace', fontSize: '0.85rem' }}>
+                                ➜ ls ./socials/
+                            </span>
+                        </div>
+                        <div className='ct-socials'>
+                            {socialsData.github && (<a href={socialsData.github} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaGithub /></a>)}
+                            {socialsData.linkedIn && (<a href={socialsData.linkedIn} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaLinkedinIn /></a>)}
+                            {socialsData.twitter && (<a href={socialsData.twitter} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaTwitter /></a>)}
+                            {socialsData.instagram && (<a href={socialsData.instagram} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaInstagram /></a>)}
+                            {socialsData.tiktok && (<a href={socialsData.tiktok} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaTiktok /></a>)}
+                            {socialsData.youtube && (<a href={socialsData.youtube} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaYoutube /></a>)}
+                            {socialsData.medium && (<a href={socialsData.medium} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaMediumM /></a>)}
+                            {socialsData.reddit && (<a href={socialsData.reddit} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaRedditAlien /></a>)}
+                            {socialsData.stackOverflow && (<a href={socialsData.stackOverflow} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaStackOverflow /></a>)}
+                            {socialsData.codepen && (<a href={socialsData.codepen} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaCodepen /></a>)}
+                            {socialsData.gitlab && (<a href={socialsData.gitlab} target='_blank' rel='noreferrer' className='ct-social-icon' style={{ color: theme.primary, borderColor: `${theme.primary}30` }}><FaGitlab /></a>)}
                         </div>
                     </div>
                 </div>
             </div>
-            <img src={theme.contactsimg} alt='contacts' className='contacts--img' />
+
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} autoHideDuration={4000} onClose={handleClose}>
+                <SnackbarContent
+                    action={<React.Fragment><IconButton size='small' aria-label='close' color='inherit' onClick={handleClose}><CloseIcon fontSize='small' /></IconButton></React.Fragment>}
+                    style={{ backgroundColor: theme.primary, color: '#0a0a0a', fontFamily: 'var(--primaryFont)' }}
+                    message={errMsg}
+                />
+            </Snackbar>
         </div>
     );
 }

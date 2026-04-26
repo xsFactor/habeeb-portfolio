@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './Achievement.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { achievementData } from '../../data/achievementData'
+import { achievementData } from '../../data/achievementData';
 import AchievementCard from './AchievementCard';
 
 function Achievement() {
@@ -11,12 +11,15 @@ function Achievement() {
     return (
         <>
             {achievementData.achievements.length > 0 && (
-                <div className="achievement" id="achievement" style={{backgroundColor: theme.secondary}}>
+                <div className="achievement" id="achievement" style={{ backgroundColor: theme.secondary }}>
+
+                    {/* Left: Title & Bio */}
                     <div className="achievement-body">
-                        <h1 style={{color: theme.primary}}>Achievements</h1>
-                        <h4 style={{color: theme.tertiary}}>{achievementData.bio}</h4>
+                        <h1 style={{ color: theme.primary }}>Achievements</h1>
+                        <h4 style={{ color: theme.tertiary }}>{achievementData.bio}</h4>
                     </div>
 
+                    {/* Right: Timeline */}
                     <div className="achievement-cards">
                         {achievementData.achievements.slice(0, 3).map(achieve => (
                             <AchievementCard
@@ -30,7 +33,6 @@ function Achievement() {
                             />
                         ))}
 
-                        {/* View All button — only shows if more than 3 */}
                         {achievementData.achievements.length > 3 && (
                             <div className="achievement-viewAll">
                                 <button
@@ -54,7 +56,7 @@ function Achievement() {
                         <div className="achievement-modalOverlay" onClick={() => setShowModal(false)}>
                             <div
                                 className="achievement-modal"
-                                style={{ backgroundColor: theme.secondary }}
+                                style={{ backgroundColor: '#0d0d0d', border: `1px solid ${theme.primary}30` }}
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <div className="achievement-modalHeader">
@@ -86,7 +88,7 @@ function Achievement() {
                 </div>
             )}
         </>
-    )
+    );
 }
 
-export default Achievement
+export default Achievement;
