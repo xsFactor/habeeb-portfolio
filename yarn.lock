@@ -9512,6 +9512,11 @@ react-fast-marquee@^1.2.1:
   resolved "https://registry.npmjs.org/react-fast-marquee/-/react-fast-marquee-1.2.1.tgz"
   integrity sha512-rd9ZDhiUrrL2puZNlnb633df/1gjtknuIaf749LIgTLXa18fzPIdFBrz4VjERu1ECUdU9tniaF5FuosNt/GYKQ==
 
+react-ga4@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/react-ga4/-/react-ga4-3.0.1.tgz"
+  integrity sha512-GyCc01bSheWXjzGDyHsXMOqk/SP5Cf/JrcJTg4hcpKx4eeSwaJKpJUc+ipF4ffLTZkmabmf3ZGBv4OKHTXNXyA==
+
 react-helmet@^6.1.0:
   version "6.1.0"
   resolved "https://registry.npmjs.org/react-helmet/-/react-helmet-6.1.0.tgz"
