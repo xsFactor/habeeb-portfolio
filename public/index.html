@@ -37,14 +37,159 @@
     <meta itemprop="image" content="%PUBLIC_URL%/android-chrome-512x512.png" />
     <meta itemprop="url" content="https://habeebfactor.netlify.app/" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-33CDXC4YNG"></script>
+    <!-- Google Analytics GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TVM0FHN4K"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      gtag('config', 'G-5TVM0FHN4K', {
+        page_title: 'Habeeb Factor Portfolio',
+        page_location: window.location.href,
+        send_page_view: true
+      });
 
-      gtag('config', 'G-33CDXC4YNG');
+      // ── Custom Event Tracking ──
+      document.addEventListener('DOMContentLoaded', function() {
+
+        // Track all external link clicks
+        document.addEventListener('click', function(e) {
+          const link = e.target.closest('a');
+          if (!link) return;
+          const href = link.getAttribute('href') || '';
+
+          // GitHub clicks
+          if (href.includes('github.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'GitHub',
+              value: 1
+            });
+          }
+
+          // LinkedIn clicks
+          if (href.includes('linkedin.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'LinkedIn',
+              value: 1
+            });
+          }
+
+          // Twitter/X clicks
+          if (href.includes('twitter.com') || href.includes('x.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'Twitter',
+              value: 1
+            });
+          }
+
+          // TikTok clicks
+          if (href.includes('tiktok.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'TikTok',
+              value: 1
+            });
+          }
+
+          // YouTube clicks
+          if (href.includes('youtube.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'YouTube',
+              value: 1
+            });
+          }
+
+          // Instagram clicks
+          if (href.includes('instagram.com')) {
+            gtag('event', 'click', {
+              event_category: 'Social',
+              event_label: 'Instagram',
+              value: 1
+            });
+          }
+
+          // CV Download clicks
+          if (href.includes('resume') || href.includes('cv') || link.getAttribute('download')) {
+            gtag('event', 'download', {
+              event_category: 'CV',
+              event_label: 'Resume Download',
+              value: 1
+            });
+          }
+
+          // Project Demo clicks
+          if (link.closest('.singleProject') && href.startsWith('http')) {
+            gtag('event', 'click', {
+              event_category: 'Projects',
+              event_label: 'Project Demo Click',
+              value: 1
+            });
+          }
+
+          // Blog clicks
+          if (link.closest('.singleBlog') && href.startsWith('http')) {
+            gtag('event', 'click', {
+              event_category: 'Blog',
+              event_label: 'Blog Post Click',
+              value: 1
+            });
+          }
+
+          // Contact email click
+          if (href.startsWith('mailto:')) {
+            gtag('event', 'click', {
+              event_category: 'Contact',
+              event_label: 'Email Click',
+              value: 1
+            });
+          }
+
+          // Contact phone click
+          if (href.startsWith('tel:')) {
+            gtag('event', 'click', {
+              event_category: 'Contact',
+              event_label: 'Phone Click',
+              value: 1
+            });
+          }
+        });
+
+        // Track section visibility using IntersectionObserver
+        const sections = ['landing', 'about', 'resume', 'skills', 'experience', 'projects', 'achievement', 'services', 'blog', 'contacts'];
+        sections.forEach(function(sectionId) {
+          const el = document.getElementById(sectionId);
+          if (!el) return;
+          const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                gtag('event', 'section_view', {
+                  event_category: 'Sections',
+                  event_label: sectionId,
+                  value: 1
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          observer.observe(el);
+        });
+
+        // Track contact form submission
+        document.addEventListener('submit', function(e) {
+          if (e.target.closest('.contacts')) {
+            gtag('event', 'form_submit', {
+              event_category: 'Contact',
+              event_label: 'Contact Form Submitted',
+              value: 1
+            });
+          }
+        });
+
+      });
     </script>
 
     <title>Habeeb Factor | Cybersecurity Expert</title>
