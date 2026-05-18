@@ -29,11 +29,11 @@ export const projectsData = [
     },
     {
         id: 3,
-        projectName: 'Weather App',
-        projectDesc: 'Weather forecast systems and applications predict weather conditions based on multiple parameters.',
-        tags: ['Django', 'CSS', 'Material Ui'],
-        code: 'https://github.com/',
-        demo: 'https://github.com/',
+        projectName: 'Investigator Sync',
+        projectDesc: 'Investigator Sync is a browser extension that automatically synchronizes a curated collection of OSINT and cybersecurity bookmarks from a public GitHub repository.',
+        tags: ['JavaScript', 'HTML'],
+        code: 'https://github.com/BrainARD-hub/Investigator-Sync',
+        demo: 'https://addons.mozilla.org/addon/investigator-sync/',
         image: three
     },
     {
